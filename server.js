@@ -1,6 +1,7 @@
 import express from "express";
 const app = express();
 const port = process.env.PORT || 5000;
+import cors from "cors";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -11,7 +12,6 @@ app.use(cookieParser());
 import credentials from "./middleware/credentials.js";
 app.use(credentials);
 
-import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 app.use(cors(corsOptions));
 
@@ -23,6 +23,10 @@ import logout from "./routes/logout.js";
 import refreshToken from "./routes/refreshToken.js";
 import register from "./routes/register.js";
 import passwords from "./routes/api/passwords.js";
+
+app.get("/", (req, res) => {
+  res.send("Password Manager");
+});
 
 // routes
 app.use("/register", register);
