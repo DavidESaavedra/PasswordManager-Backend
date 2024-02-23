@@ -2,7 +2,7 @@ import allowedOrigins from "./allowedOrigins.js";
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // !origin to allow server localhost to work, since it is undefined
+    // !origin allows server localhost and postman to work, since it is undefined and doesn't have an origin
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
