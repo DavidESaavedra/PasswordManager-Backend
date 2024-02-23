@@ -19,5 +19,5 @@ CREATE TABLE `passwords` (
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
   FOREIGN KEY (`userID`) REFERENCES `users` (`ID`),
-  PRIMARY KEY (`key`)
+  PRIMARY KEY (`pKey`)
 );
