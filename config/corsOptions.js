@@ -4,6 +4,7 @@ const corsOptions = {
   origin: (origin, callback) => {
     // || !origin allows server localhost and postman to work, since it is undefined and doesn't have an origin
     console.log(origin, ",", callback);
+    if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
