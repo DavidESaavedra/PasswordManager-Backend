@@ -38,6 +38,8 @@ const handleLogin = async (req, res) => {
       email,
     ]);
 
+    console.log(refreshToken, "refresh token just made");
+
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
