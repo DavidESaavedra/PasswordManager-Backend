@@ -30,7 +30,7 @@ const handleRefreshToken = async (req, res) => {
       res.clearCookie("jwt", {
         httpOnly: true,
         sameSite: "None",
-        // secure: true,
+        secure: true,
       });
       res.status(401).json({ message: "no refresh token, log in" });
       return;
