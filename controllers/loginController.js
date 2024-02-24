@@ -42,7 +42,7 @@ const handleLogin = async (req, res) => {
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
-      sameSite: "None",
+      sameSite: "lax",
       secure: true,
       // one day
       maxAge: 24 * 60 * 60 * 1000,
