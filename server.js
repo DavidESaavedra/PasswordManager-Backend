@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 import cors from "cors";
 
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
