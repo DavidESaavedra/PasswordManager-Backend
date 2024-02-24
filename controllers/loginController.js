@@ -38,8 +38,6 @@ const handleLogin = async (req, res) => {
       email,
     ]);
 
-    console.log(refreshToken, "refresh token just made");
-
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
@@ -48,6 +46,8 @@ const handleLogin = async (req, res) => {
       // one day
       maxAge: 24 * 60 * 60 * 1000,
     });
+
+    console.log(res);
 
     res.status(200).json({ ID: rows[0].ID, accessToken: accessToken });
   } else {
