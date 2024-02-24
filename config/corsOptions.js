@@ -2,8 +2,8 @@ import allowedOrigins from "./allowedOrigins.js";
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // !origin allows server localhost and postman to work, since it is undefined and doesn't have an origin
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    // || !origin allows server localhost and postman to work, since it is undefined and doesn't have an origin
+    if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
