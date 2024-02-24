@@ -29,8 +29,8 @@ const handleRefreshToken = async (req, res) => {
     if (err || rows[0].ID !== decoded.ID) {
       res.clearCookie("jwt", {
         httpOnly: true,
-        sameSite: "Strict",
-        secure: true,
+        sameSite: "None",
+        // secure: true,
       });
       res.status(401).json({ message: "no refresh token, log in" });
       return;
