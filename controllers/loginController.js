@@ -47,8 +47,6 @@ const handleLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    console.log(res);
-
     res.status(200).json({ ID: rows[0].ID, accessToken: accessToken });
   } else {
     res.status(400).json({ message: "Wrong password" });

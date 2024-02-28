@@ -1,5 +1,7 @@
 import express from "express";
 const app = express();
+
+import "dotenv/config";
 const port = process.env.PORT || 5000;
 import cors from "cors";
 
@@ -41,4 +43,4 @@ app.use(refreshTokenCheck);
 
 app.use("/passwords", passwords);
 
-app.listen(port, () => console.log(`http://localhost:${port}/`));
+app.listen(port, () => console.log(`http://localhost:${port}`));
