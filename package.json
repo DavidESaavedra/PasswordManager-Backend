@@ -1,6 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.12.1",
+    "npm": "8.19.2"
+  },
   "description": "",
   "type": "module",
   "main": "server.js",
