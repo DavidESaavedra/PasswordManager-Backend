@@ -32,7 +32,7 @@ const handleRefreshToken = async (req, res) => {
         sameSite: "None",
         secure: true,
       });
-      res.status(401).json({ message: "no refresh token, log in" });
+      res.status(406).json({ message: "no refresh token, log in" });
       return;
     }
     const accessToken = jwt.sign(
