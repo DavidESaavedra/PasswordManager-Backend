@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import pool from "../config/db.js";
 import jwt from "jsonwebtoken";
+import model from "../models/user.js";
 
 // post
 
@@ -11,10 +11,7 @@ const handleLogin = async (req, res) => {
     return;
   }
 
-  const [rows, info] = await pool.query(
-    "SELECT ID, email, password FROM users WHERE email = ?",
-    [email]
-  );
+  const rows = await model.userLogin(email);
 
   if (rows.length === 0) {
     res.status(500).json({ message: "User doesn't exist" });
@@ -33,10 +30,7 @@ const handleLogin = async (req, res) => {
       { expiresIn: process.env.REFRESH_TOKEN_DURATION }
     );
 
-    await pool.query("UPDATE users SET refreshToken = ? WHERE email = ?", [
-      refreshToken,
-      email,
-    ]);
+    await model.updateRefresh(refreshToken, email);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,

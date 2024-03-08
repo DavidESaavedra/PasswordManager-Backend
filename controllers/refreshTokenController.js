@@ -1,5 +1,5 @@
-import pool from "../config/db.js";
 import jwt from "jsonwebtoken";
+import model from "../models/user.js";
 
 // get
 
@@ -10,10 +10,7 @@ const handleRefreshToken = async (req, res) => {
     return;
   }
 
-  const [rows, info] = await pool.query(
-    "SELECT ID FROM users WHERE refreshToken = ?",
-    [cookies.jwt]
-  );
+  const rows = await model.checkRefresh(cookies.jwt);
 
   if (rows.length === 0) {
     res.clearCookie("jwt", {

@@ -1,4 +1,4 @@
-import pool from "../config/db.js";
+import model from "../models/user.js";
 
 // get
 
@@ -8,10 +8,7 @@ const handleLogout = async (req, res) => {
     return res.status(401).json({ message: "Cookie missing" });
   }
 
-  const [rows, info] = await pool.query(
-    "SELECT email FROM users WHERE refreshToken = ?",
-    [cookies.jwt]
-  );
+  const rows = await model.checkRefresh(cookies.jwt);
 
   if (rows.length === 0) {
     res.clearCookie("jwt", {
@@ -23,10 +20,7 @@ const handleLogout = async (req, res) => {
     return;
   }
 
-  await pool.query(
-    `UPDATE users SET refreshToken = null WHERE refreshToken = ?`,
-    [cookies.jwt]
-  );
+  await model.removeRefresh(cookies.jwt);
 
   res.clearCookie("jwt", {
     httpOnly: true,

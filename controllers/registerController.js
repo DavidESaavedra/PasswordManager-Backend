@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import pool from "../config/db.js";
+import model from "../models/user.js";
 
 // post
 
@@ -10,10 +10,7 @@ const handleRegister = async (req, res) => {
     return;
   }
 
-  const [rows, info] = await pool.query(
-    "SELECT email FROM users WHERE email = ?",
-    [email]
-  );
+  const rows = await model.checkEmail(email);
 
   if (rows.length > 0) {
     res.status(500).json({ message: "User already exists" });
@@ -23,10 +20,8 @@ const handleRegister = async (req, res) => {
   try {
     const hashedPWD = await bcrypt.hash(pwd, 10);
 
-    await pool.query("INSERT INTO users (email, password) VALUES (?, ?)", [
-      email,
-      hashedPWD,
-    ]);
+    await model.addUser(email, hashedPWD);
+
     res.status(200).json({ success: `New user ${email} created` });
   } catch (err) {
     res.status(500).json({ message: err.message });
