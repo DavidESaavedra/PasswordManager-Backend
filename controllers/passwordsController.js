@@ -6,7 +6,7 @@ const handleEntries = async (req, res) => {
   const { ID, accessToken } = req.body;
 
   const [rows, info] = await pool.query(
-    "SELECT * FROM passwords WHERE userID = ?",
+    "SELECT pKey, title, username, password FROM passwords WHERE userID = ?",
     [ID]
   );
 
@@ -18,12 +18,14 @@ const handleEntries = async (req, res) => {
 const handleAdd = async (req, res) => {
   const { title, username, password, ID } = req.body;
 
-  await pool.query(
+  const [rows, info] = await pool.query(
     "INSERT INTO passwords (userID, title, username, password) VALUES (?, ?, ?, ?)",
     [ID, title, username, password]
   );
 
-  res.status(200).json({ message: "new Entry was created" });
+  res
+    .status(200)
+    .json({ message: "new Entry was created", pKey: rows.insertId });
 };
 
 // put
